@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#notesList {
+    margin-top: 20px;
+}
+
+.note {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: left;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Notes App</h1>
+        <textarea id="noteInput" placeholder="Enter your note here..."></textarea>
+        <button id="addNoteButton">Save Note</button>
+        <div id="notesList"></div>
+    </div>
+   <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    const noteInput = document.getElementById('noteInput');
+    const addNoteButton = document.getElementById('addNoteButton');
+    const notesList = document.getElementById('notesList');
+
+    // Load notes from local storage on page load
+    displayNotes();
+
+    addNoteButton.addEventListener('click', () => {
+        const text = noteInput.value.trim();
+        if (text) {
+            const note = {
+                text: text,
+                date: new Date().toLocaleString()
+            };
+            saveNoteToLocalStorage(note);
+            noteInput.value = '';
+            displayNotes();
+        }
+    });
+
+    function saveNoteToLocalStorage(note) {
+        let notes = localStorage.getItem('notes');
+        if (!notes) {
+            notes = [];
+        } else {
+            notes = JSON.parse(notes);
+        }
+        notes.push(note);
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    function displayNotes() {
+        notesList.innerHTML = '';
+        let notes = localStorage.getItem('notes');
+        if (notes) {
+            notes = JSON.parse(notes);
+            notes.forEach((note, index) => {
+                const noteDiv = document.createElement('div');
+                noteDiv.className = 'note';
+                noteDiv.innerHTML = `
+                    <p>${note.text}</p>
+                    <small>${note.date}</small>
+                    <button class="deleteButton" data-index="${index}">Delete</button>
+                `;
+                notesList.appendChild(noteDiv);
+            });
+
+            // Add delete functionality
+            document.querySelectorAll('.deleteButton').forEach(button => {
+                button.addEventListener('click', () => {
+                    deleteNote(button.getAttribute('data-index'));
+                });
+            });
+        }
+    }
+
+    function deleteNote(index) {
+        let notes = localStorage.getItem('notes');
+        if (notes) {
+            notes = JSON.parse(notes);
+            notes.splice(index, 1);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            displayNotes();
+        }
+    }
+});
+
+   </script>
+</body>
+</html>

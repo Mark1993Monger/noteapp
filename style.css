@@ -1,0 +1,92 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+body {
+    background-color: rgba(218, 85, 112, 0.94);
+    box-sizing: border-box;
+}
+.container {
+    max-width: 600px;
+    background-color: rgba(65, 65, 225, 0.532);
+    padding: 20px;
+    width: 300px;
+    min-height: 200px;
+    margin: 15px auto;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.604);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-top: 20px;
+    
+}
+.logo img {
+    width: 60px;
+    margin-right: 5px;
+    
+}
+.logo h1 {
+    font-size: 20px;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#note-create {
+    text-decoration: none;
+    color: white;
+    background-color: rgb(64, 5, 127);
+    padding: 12px 0px;
+    margin-left: 50px;
+    width: 200px;
+    border-radius: 25px;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    
+
+}
+form {
+   max-width: 100px;
+   padding: 20px;
+
+}
+form textarea {
+    padding: 30px 60px;
+}
+.container h1 {
+    color: white;
+    font-size: 30px;
+    padding: 12px;
+}
+.container textarea {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    margin-top: 6px;
+}
+.container label {
+    color: white;
+    
+}
+#btn {
+    padding: 10px 70px;
+    margin-left: 50px;
+    border: none;
+    background-color: darkblue;
+    color: white;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-top: 10px;
+  
+}
+.back {
+    text-decoration: none;
+    color: darkblue;
+    font-size: 20px;
+  
+   padding: 12px;
+}
